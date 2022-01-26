@@ -1,2 +1,11 @@
 server:
   port: 8081
+
+spring:
+  application:
+    name: api-sample1
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka/
