@@ -1,4 +1,0 @@
-FROM openjdk:17.0.2-jdk
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
-CMD ["java", "-jar","api-sample-0.1.jar"]

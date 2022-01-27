@@ -11,19 +11,20 @@ import java.net.UnknownHostException;
 @RestController
 public class HomeController {
 
-    @GetMapping("/instance1/get")
-    public InstanceInfo index1(HttpServletRequest req){
+    @GetMapping("/service-info")
+    public InstanceInfo info(HttpServletRequest req){
         return generateInstanceInfo(req);
     }
 
-    @GetMapping("/instance2/get")
-    public InstanceInfo index2(HttpServletRequest req){
-        return generateInstanceInfo(req);
+    @GetMapping("/test")
+    public String test(HttpServletRequest req){
+        return "test";
     }
 
     public InstanceInfo generateInstanceInfo(HttpServletRequest request){
         InstanceInfo instanceInfo = new InstanceInfo();
         try {
+            instanceInfo.setServiceName(System.getenv("SERVICE_NAME"));
             instanceInfo.setHostAddress(InetAddress.getLocalHost().getHostAddress());
             instanceInfo.setHostName(InetAddress.getLocalHost().getHostName());
             instanceInfo.setRequestPath(request.getRequestURI());

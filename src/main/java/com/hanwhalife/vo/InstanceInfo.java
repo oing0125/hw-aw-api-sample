@@ -9,4 +9,5 @@ public class InstanceInfo {
     public String requestPath;
     public String hostName;
     public String hostAddress;
+    public String serviceName;
 }
