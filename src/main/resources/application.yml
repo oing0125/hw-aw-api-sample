@@ -4,8 +4,14 @@ server:
 spring:
   application:
     name: ${SERVICE_NAME}
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: ${ZIPKIN_ENDPOINT}
+
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${EUREKA_ENDPOINT}
+      defaultZone: ${EUREKA_ENDPOINT}
