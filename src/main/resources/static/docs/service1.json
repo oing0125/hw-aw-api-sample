@@ -1,0 +1,71 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Service1 API",
+    "description" : "My API description",
+    "version" : "0.1.0"
+  },
+  "servers" : [ {
+    "url" : "https://localhost:8080/service1"
+  } ],
+  "tags" : [ ],
+  "paths" : {
+    "/service-info" : {
+      "get" : {
+        "tags" : [ "service-info" ],
+        "summary" : "Get service info",
+        "description" : "Get service info",
+        "operationId" : "get-service-info",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/service-info486549215"
+                },
+                "examples" : {
+                  "get-service-info" : {
+                    "value" : "{\"requestPath\":\"/service-info\",\"hostName\":\"Byungchuls-iMac.local\",\"hostAddress\":\"127.0.0.1\",\"serviceName\":\"service1\"}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test" : {
+      "get" : {
+        "tags" : [ "test" ],
+        "summary" : "Get test",
+        "description" : "Get test",
+        "operationId" : "test",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "text/plain;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/service-info486549215"
+                },
+                "examples" : {
+                  "test" : {
+                    "value" : "test"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "service-info486549215" : {
+        "type" : "object"
+      }
+    }
+  }
+}

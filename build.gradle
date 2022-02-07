@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'com.epages.restdocs-api-spec' version '0.15.1'
 }
 
 group 'org.hanwhalife'
@@ -9,6 +10,7 @@ version '0.1'
 ext {
     set('springCloudVersion', "2021.0.0")
     sourceEncoding='UTF-8'
+    snippetsDir = file('build/generated-snippets')
 }
 
 repositories {
@@ -17,6 +19,7 @@ repositories {
     maven { url "https://repo.spring.io/libs-snapshot-local" }
     maven { url "https://repo.spring.io/libs-milestone-local" }
     maven { url "https://repo.spring.io/libs-release-local" }
+    maven { url "https://plugins.gradle.org/m2/" }
 }
 
 dependencyManagement {
@@ -26,6 +29,7 @@ dependencyManagement {
 }
 
 dependencies {
+    compileClasspath("com.epages:restdocs-api-spec-gradle-plugin:0.9.5")
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -35,8 +39,44 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     implementation('org.springframework.cloud:spring-cloud-starter-zipkin:2.2.8.RELEASE')
     implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')
+    testImplementation('com.epages:restdocs-api-spec-mockmvc:0.11.2')
+
+//    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+//    implementation('org.springframework.boot:spring-boot-starter-data-rest')
+//    implementation('com.h2database:h2')
+    testImplementation('org.junit.jupiter:junit-jupiter-engine')
+
+//    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')
+
+//    testImplementation('com.epages:restdocs-api-spec-mockmvc:0.11.2')
+//	testCompile project(':restdocs-api-spec-mockmvc') //enable for depending on the submodule directly
+//    testImplementation('com.google.guava:guava:23.0')
 }
 
 test {
     useJUnitPlatform()
+    environment "SERVICE_NAME", "service1"
+    environment "ZIPKIN_ENDPOINT", "http://192.168.64.2:9411"
+    environment "EUREKA_ENDPOINT", "http://localhost:8761/eureka"
 }
+
+openapi3 {
+    server = 'https://localhost:8080'
+    title = 'My API'
+    description = 'My API description'
+    version = '0.1.0'
+    format = 'json'
+    copy{
+        from "build/api-spec"
+        into "src/main/resources/static/docs"
+    }
+}
+//
+//postman {
+//    title = 'My API'
+//    version = '0.1.0'
+//    baseUrl = 'https://localhost:8080'
+//}
