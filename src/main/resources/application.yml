@@ -10,6 +10,12 @@ spring:
   zipkin:
     base-url: ${ZIPKIN_ENDPOINT}
 
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
 
 eureka:
   client:
